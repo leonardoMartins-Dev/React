@@ -1,0 +1,397 @@
+/* =========================================================
+   Visual clássico: inspirado nos menus do Game Boy Advance
+   (FireRed/LeafGreen) — fonte pixelada, caixas com moldura dupla,
+   sombras "duras" e sprites em pixel art
+   ========================================================= */
+:root[data-theme='classic'] {
+  --bg: #f2ebcf;
+  --surface: #fcfcf4;
+  --text: #404040;
+  --muted: #787068;
+  --ink: #303848;
+  --frame: #a8b8d8;
+  --accent: #e03c28;
+  --focus: #3870e8;
+  --font-display: 'Press Start 2P', monospace;
+  --font-body: 'Pixelify Sans', system-ui, sans-serif;
+  color-scheme: light;
+}
+
+[data-theme='classic'] body {
+  /* A fonte pixelada junta "fi" numa ligadura estranha ("fire" vira "Are") */
+  font-variant-ligatures: none;
+  background-image: radial-gradient(rgb(160 140 90 / 0.2) 1.5px, transparent 1.5px);
+  background-size: 12px 12px;
+}
+
+/* Cabeçalho vermelho */
+[data-theme='classic'] .app-header {
+  background: linear-gradient(#f05040, #e03c28 60%, #c82818);
+  border-bottom: 4px solid #801810;
+  box-shadow: 0 4px 0 rgb(0 0 0 / 0.15);
+}
+
+[data-theme='classic'] .brand h1 {
+  font-family: var(--font-display);
+  font-size: clamp(18px, 3.4vw, 26px);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #fff;
+  text-shadow: 3px 3px 0 #801810;
+}
+
+[data-theme='classic'] .brand p {
+  margin-top: 8px;
+  font-family: var(--font-display);
+  font-size: 9px;
+  color: #ffe0d8;
+}
+
+[data-theme='classic'] .brand-icon {
+  filter: drop-shadow(3px 3px 0 #801810);
+}
+
+/* Seletor de visual estilo menu do jogo (com a setinha ▶) */
+[data-theme='classic'] .theme-toggle {
+  gap: 4px;
+  padding: 6px;
+  background: #f8f8f8;
+  border: 4px solid var(--ink);
+  border-radius: 8px;
+  box-shadow: inset 0 0 0 3px var(--frame), 0 4px 0 rgb(0 0 0 / 0.25);
+}
+
+[data-theme='classic'] .theme-option {
+  position: relative;
+  gap: 5px;
+  padding: 6px 12px 6px 24px;
+  font-family: var(--font-display);
+  font-size: 9px;
+  color: var(--text);
+  background: none;
+  border: 0;
+}
+
+[data-theme='classic'] .theme-option:not(.active) {
+  opacity: 0.55;
+}
+
+[data-theme='classic'] .theme-option.active::before {
+  content: '▶';
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  color: var(--accent);
+  animation: classic-blink 900ms steps(1) infinite;
+}
+
+[data-theme='classic'] .theme-option-hint {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Busca */
+[data-theme='classic'] .search-input {
+  height: 52px;
+  font-family: var(--font-body);
+  font-size: 18px;
+  color: var(--text);
+  background: #f8f8f8;
+  border: 4px solid var(--ink);
+  border-radius: 8px;
+  box-shadow: inset 0 0 0 3px var(--frame), 0 4px 0 rgb(0 0 0 / 0.2);
+}
+
+[data-theme='classic'] .search-input::placeholder {
+  color: #9890a0;
+}
+
+[data-theme='classic'] .search-input:focus {
+  border-color: var(--accent);
+}
+
+[data-theme='classic'] .search-icon {
+  color: var(--ink);
+}
+
+/* Botões de filtro e etiquetas de tipo, no formato das etiquetas do GBA.
+   Usam a Pixelify porque a Press Start 2P "some" com os acentos das maiúsculas (ÁGUA, ELÉTRICO) */
+[data-theme='classic'] .filter-button,
+[data-theme='classic'] .type-badge {
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border-radius: 4px;
+}
+
+[data-theme='classic'] .filter-button {
+  padding: 6px 10px;
+  font-size: 14px;
+  color: var(--text);
+  background: #f8f8f8;
+  border: 3px solid var(--ink);
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.2);
+  opacity: 0.5;
+}
+
+[data-theme='classic'] .filter-button.has-type,
+[data-theme='classic'] .type-badge {
+  color: #fff;
+  background: var(--type-color);
+  border-color: color-mix(in srgb, var(--type-color) 55%, #000);
+  text-shadow: 1px 1px 0 rgb(0 0 0 / 0.5);
+}
+
+[data-theme='classic'] .filter-button:hover {
+  opacity: 0.85;
+}
+
+[data-theme='classic'] .filter-button.active {
+  opacity: 1;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 0 rgb(0 0 0 / 0.25);
+}
+
+[data-theme='classic'] .filter-button.active::before {
+  content: '▶ ';
+}
+
+[data-theme='classic'] .type-badge {
+  padding: 3px 8px;
+  font-size: 12px;
+  border: 2px solid color-mix(in srgb, var(--type-color) 55%, #000);
+  box-shadow: inset 0 2px 0 rgb(255 255 255 / 0.3);
+}
+
+[data-theme='classic'] .result-count {
+  font-family: var(--font-display);
+  font-size: 9px;
+  color: var(--muted);
+}
+
+[data-theme='classic'] .empty {
+  font-size: 18px;
+  color: var(--muted);
+}
+
+/* Cards como as caixas de texto do jogo */
+[data-theme='classic'] .pokemon-card {
+  background: var(--surface);
+  border: 4px solid var(--ink);
+  border-radius: 10px;
+  box-shadow: inset 0 0 0 3px var(--frame), 5px 5px 0 rgb(48 56 72 / 0.25);
+}
+
+[data-theme='classic'] .pokemon-card:hover {
+  background: #eaf2ff;
+  transform: translate(-2px, -2px);
+  box-shadow: inset 0 0 0 3px var(--frame), 7px 7px 0 rgb(48 56 72 / 0.3);
+}
+
+[data-theme='classic'] .pokemon-id {
+  font-family: var(--font-display);
+  font-size: 10px;
+  color: var(--muted);
+}
+
+/* "Plataforma" de batalha embaixo do sprite */
+[data-theme='classic'] .pokemon-sprite::before {
+  bottom: 8px;
+  width: 70%;
+  height: 26px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--type-color) 30%, #e8e0c0);
+  border: 3px solid color-mix(in srgb, var(--type-color) 45%, #a89868);
+}
+
+[data-theme='classic'] .pokemon-sprite img {
+  width: 128px;
+  height: 128px;
+  image-rendering: pixelated;
+}
+
+[data-theme='classic'] .pokemon-card:hover .pokemon-sprite img {
+  animation: classic-bob 500ms steps(1) infinite;
+}
+
+[data-theme='classic'] .pokemon-name {
+  font-family: var(--font-display);
+  font-size: 11px;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+/* Setinha de seleção do menu ao passar o mouse */
+[data-theme='classic'] .pokemon-card:hover .pokemon-name button::before {
+  content: '▶';
+  margin-right: 6px;
+  color: var(--accent);
+}
+
+[data-theme='classic'] .stats {
+  padding-top: 10px;
+  border-top: 3px dotted #c8c0a8;
+}
+
+[data-theme='classic'] .stats dt {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+[data-theme='classic'] .stats dd {
+  font-family: var(--font-display);
+  font-size: 10px;
+}
+
+@keyframes classic-blink {
+  50% { opacity: 0; }
+}
+
+@keyframes classic-bob {
+  0%, 100% { transform: none; }
+  50% { transform: translateY(-4px); }
+}
+
+/* Abas no cabeçalho vermelho */
+[data-theme='classic'] .view-tab {
+  padding: 10px 14px;
+  font-family: var(--font-display);
+  font-size: 10px;
+  color: #fff;
+  text-shadow: 2px 2px 0 #801810;
+  background: none;
+  border: 3px solid transparent;
+  border-radius: 6px;
+}
+
+[data-theme='classic'] .view-tab:hover {
+  border-color: rgb(255 255 255 / 0.6);
+}
+
+[data-theme='classic'] .view-tab.active {
+  color: var(--text);
+  text-shadow: none;
+  background: #f8f8f8;
+  border-color: var(--ink);
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.25);
+}
+
+[data-theme='classic'] .view-tab.active::before {
+  content: '▶ ';
+  color: var(--accent);
+}
+
+/* Cartão de Treinador (a cor de fundo muda com o número de insígnias) */
+[data-theme='classic'] .trainer-card {
+  background:
+    repeating-linear-gradient(135deg, rgb(255 255 255 / 0.18) 0 6px, transparent 6px 12px),
+    var(--rank-color);
+  border: 4px solid var(--ink);
+  border-radius: 14px;
+  box-shadow: inset 0 0 0 3px rgb(255 255 255 / 0.55), 5px 5px 0 rgb(48 56 72 / 0.25);
+}
+
+[data-theme='classic'] .trainer-avatar {
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: var(--accent);
+  background: #f8f8f8;
+  border: 3px solid var(--ink);
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 3px var(--frame);
+}
+
+[data-theme='classic'] .trainer-label {
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--ink);
+  opacity: 0.75;
+}
+
+[data-theme='classic'] .trainer-name {
+  font-family: var(--font-display);
+  font-size: 14px;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+[data-theme='classic'] .trainer-rank {
+  padding: 6px 8px;
+  font-family: var(--font-display);
+  font-size: 8px;
+  text-transform: uppercase;
+  background: #f8f8f8;
+  border: 3px solid var(--ink);
+  border-radius: 4px;
+}
+
+[data-theme='classic'] .trainer-info {
+  padding: 10px 12px;
+  background: #f8f8f8;
+  border: 3px solid var(--ink);
+  border-radius: 8px;
+  box-shadow: inset 0 0 0 2px var(--frame);
+}
+
+[data-theme='classic'] .trainer-info dt {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+[data-theme='classic'] .trainer-info dd {
+  font-family: var(--font-display);
+  font-size: 11px;
+}
+
+/* Faixa escura com as insígnias, como no verso do cartão */
+[data-theme='classic'] .trainer-badges {
+  justify-content: center;
+  padding: 12px;
+  background: #383848;
+  border: 3px solid var(--ink);
+  border-radius: 8px;
+}
+
+[data-theme='classic'] .badge-slot {
+  width: 18px;
+  height: 18px;
+  margin: 2px;
+  background: #505068;
+  border: 2px solid #23232f;
+  transform: rotate(45deg);
+}
+
+[data-theme='classic'] .badge-slot.earned {
+  background: radial-gradient(circle at 35% 30%, #fff 0 15%, var(--badge-color) 40%, color-mix(in srgb, var(--badge-color) 60%, #000));
+  box-shadow: 0 0 8px var(--badge-color);
+}
+
+[data-theme='classic'] .trainer-team button {
+  background: #f8f8f8;
+  border: 3px solid var(--ink);
+  border-radius: 8px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.2);
+}
+
+[data-theme='classic'] .trainer-team button:hover {
+  background: #eaf2ff;
+}
+
+[data-theme='classic'] .trainer-team button:hover img {
+  animation: classic-bob 500ms steps(1) infinite;
+}
+
+[data-theme='classic'] .trainer-team img {
+  image-rendering: pixelated;
+}
+
+[data-theme='classic'] .trainer-team span {
+  font-family: var(--font-display);
+  font-size: 7px;
+  text-transform: uppercase;
+}

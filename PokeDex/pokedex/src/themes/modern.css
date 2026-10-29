@@ -1,0 +1,366 @@
+/* =========================================================
+   Visual moderno: inspirado nos jogos de Switch
+   (Scarlet/Violet, Sword/Shield) — fundo escuro com brilhos,
+   vidro fosco, títulos em itálico e renders 3D
+   ========================================================= */
+:root[data-theme='modern'] {
+  --bg: #0a0d24;
+  --surface: #12163a;
+  --text: #f2f3ff;
+  --muted: #a3a8cc;
+  --accent: #ff6b3d;
+  --accent-2: #8b5cf6;
+  --focus: #ffb38f;
+  --font-display: 'Barlow Condensed', sans-serif;
+  --font-body: 'Barlow', system-ui, sans-serif;
+  color-scheme: dark;
+}
+
+[data-theme='modern'] body {
+  background:
+    radial-gradient(ellipse 60% 40% at 85% -5%, rgb(139 92 246 / 0.35), transparent 70%),
+    radial-gradient(ellipse 50% 35% at 0% 10%, rgb(255 107 61 / 0.22), transparent 70%),
+    var(--bg);
+  background-attachment: fixed;
+}
+
+/* Cabeçalho de vidro */
+[data-theme='modern'] .app-header {
+  background: rgb(10 13 36 / 0.7);
+  border-bottom: 1px solid rgb(255 255 255 / 0.08);
+  backdrop-filter: blur(14px);
+}
+
+[data-theme='modern'] .brand h1 {
+  font: italic 800 clamp(30px, 5vw, 44px) / 1 var(--font-display);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #fff 45%, #ffb38f);
+  background-clip: text;
+  color: transparent;
+}
+
+[data-theme='modern'] .brand p {
+  margin-top: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+[data-theme='modern'] .brand-icon {
+  filter: drop-shadow(0 0 14px rgb(255 107 61 / 0.55));
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+[data-theme='modern'] .brand:hover .brand-icon {
+  transform: rotate(360deg);
+}
+
+/* Seletor de visual */
+[data-theme='modern'] .theme-toggle {
+  gap: 4px;
+  padding: 4px;
+  background: rgb(255 255 255 / 0.06);
+  border: 1px solid rgb(255 255 255 / 0.12);
+  border-radius: 16px;
+}
+
+[data-theme='modern'] .theme-option {
+  padding: 8px 16px;
+  font-family: var(--font-body);
+  color: var(--muted);
+  background: none;
+  border: 0;
+  border-radius: 12px;
+  transition: background 0.2s, color 0.2s;
+}
+
+[data-theme='modern'] .theme-option.active {
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  box-shadow: 0 6px 20px -6px rgb(255 107 61 / 0.7);
+}
+
+[data-theme='modern'] .theme-option-label {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+[data-theme='modern'] .theme-option-hint {
+  font-size: 11px;
+  opacity: 0.8;
+}
+
+/* Busca */
+[data-theme='modern'] .search-input {
+  height: 52px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--text);
+  background: rgb(255 255 255 / 0.06);
+  border: 1px solid rgb(255 255 255 / 0.14);
+  border-radius: 16px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+[data-theme='modern'] .search-input::placeholder {
+  color: #7d83ad;
+}
+
+[data-theme='modern'] .search-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgb(255 107 61 / 0.2);
+}
+
+[data-theme='modern'] .search-icon {
+  color: var(--muted);
+}
+
+/* Filtros e etiquetas de tipo */
+[data-theme='modern'] .filter-button,
+[data-theme='modern'] .type-badge {
+  font-family: var(--font-body);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-radius: 999px;
+}
+
+[data-theme='modern'] .filter-button {
+  padding: 8px 16px;
+  font-size: 13px;
+  color: #fff;
+  background: rgb(255 255 255 / 0.06);
+  border: 1px solid rgb(255 255 255 / 0.14);
+  transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+[data-theme='modern'] .filter-button.has-type {
+  color: color-mix(in srgb, var(--type-color) 50%, #fff);
+  background: color-mix(in srgb, var(--type-color) 16%, transparent);
+  border-color: color-mix(in srgb, var(--type-color) 55%, transparent);
+}
+
+[data-theme='modern'] .filter-button:hover {
+  transform: translateY(-2px);
+}
+
+[data-theme='modern'] .filter-button.active {
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  border-color: transparent;
+  text-shadow: 0 1px 2px rgb(0 0 0 / 0.4);
+  box-shadow: 0 6px 18px -6px var(--accent);
+}
+
+[data-theme='modern'] .filter-button.has-type.active {
+  background: var(--type-color);
+  box-shadow: 0 6px 18px -6px var(--type-color);
+}
+
+[data-theme='modern'] .type-badge {
+  padding: 4px 12px;
+  font-size: 12px;
+  color: #fff;
+  background: var(--type-color);
+  text-shadow: 0 1px 2px rgb(0 0 0 / 0.45);
+  box-shadow: inset 0 -2px 0 rgb(0 0 0 / 0.15);
+}
+
+[data-theme='modern'] .result-count,
+[data-theme='modern'] .empty {
+  font-weight: 500;
+  color: var(--muted);
+}
+
+/* Cards com degradê da cor do tipo */
+[data-theme='modern'] .pokemon-card {
+  overflow: hidden;
+  padding: 18px;
+  background: linear-gradient(165deg, color-mix(in srgb, var(--type-color) 42%, var(--surface)) 0%, var(--surface) 62%);
+  border: 1px solid rgb(255 255 255 / 0.09);
+  border-radius: 22px;
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+}
+
+[data-theme='modern'] .pokemon-card:hover {
+  transform: translateY(-6px);
+  border-color: color-mix(in srgb, var(--type-color) 60%, transparent);
+  box-shadow: 0 20px 40px -14px color-mix(in srgb, var(--type-color) 75%, transparent);
+}
+
+/* Número grande e vazado no fundo */
+[data-theme='modern'] .pokemon-id {
+  position: absolute;
+  top: 4px;
+  right: 14px;
+  font: italic 800 3rem / 1 var(--font-display);
+  color: rgb(255 255 255 / 0.13);
+}
+
+/* Silhueta de Pokébola atrás do Pokémon */
+[data-theme='modern'] .pokemon-sprite::before {
+  width: 132px;
+  aspect-ratio: 1;
+  border: 10px solid rgb(255 255 255 / 0.06);
+  border-radius: 50%;
+  background: linear-gradient(transparent 45%, rgb(255 255 255 / 0.06) 45% 55%, transparent 55%);
+}
+
+[data-theme='modern'] .pokemon-sprite::after {
+  width: 110px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--type-color) 45%, transparent), transparent 70%);
+}
+
+[data-theme='modern'] .pokemon-sprite img {
+  z-index: 1;
+  width: 140px;
+  height: 140px;
+  filter: drop-shadow(0 10px 12px rgb(0 0 0 / 0.45));
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+[data-theme='modern'] .pokemon-card:hover .pokemon-sprite img {
+  transform: scale(1.1) translateY(-6px);
+}
+
+[data-theme='modern'] .pokemon-name {
+  font: italic 800 1.6rem / 1 var(--font-display);
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+[data-theme='modern'] .stats {
+  padding-top: 12px;
+  border-top: 1px solid rgb(255 255 255 / 0.08);
+}
+
+[data-theme='modern'] .stats dt {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+[data-theme='modern'] .stats dd {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+/* Abas */
+[data-theme='modern'] .view-tabs {
+  padding: 4px;
+  background: rgb(255 255 255 / 0.06);
+  border: 1px solid rgb(255 255 255 / 0.12);
+  border-radius: 14px;
+}
+
+[data-theme='modern'] .view-tab {
+  padding: 10px 18px;
+  font: 700 15px var(--font-body);
+  color: var(--muted);
+  background: none;
+  border: 0;
+  border-radius: 10px;
+  transition: background 0.2s, color 0.2s;
+}
+
+[data-theme='modern'] .view-tab:hover {
+  color: #fff;
+}
+
+[data-theme='modern'] .view-tab.active {
+  color: #fff;
+  background: rgb(255 255 255 / 0.12);
+  box-shadow: inset 0 -2px 0 var(--accent);
+}
+
+/* Cartão de liga */
+[data-theme='modern'] .trainer-card {
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--type-color) 40%, transparent), transparent 55%),
+    var(--surface);
+  border: 1px solid rgb(255 255 255 / 0.09);
+  border-radius: 24px;
+  box-shadow: inset 0 3px 0 var(--rank-color);
+}
+
+[data-theme='modern'] .trainer-avatar {
+  font: italic 800 1.8rem / 1 var(--font-display);
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  border-radius: 50%;
+  box-shadow: 0 8px 20px -8px var(--accent);
+}
+
+[data-theme='modern'] .trainer-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+[data-theme='modern'] .trainer-name {
+  font: italic 800 2rem / 1 var(--font-display);
+  text-transform: uppercase;
+}
+
+[data-theme='modern'] .trainer-rank {
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #0a0d24;
+  background: var(--rank-color);
+  border-radius: 999px;
+}
+
+[data-theme='modern'] .trainer-info dt {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+[data-theme='modern'] .trainer-info dd {
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+/* Insígnias em hexágono */
+[data-theme='modern'] .badge-slot {
+  background: rgb(255 255 255 / 0.08);
+  clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0 50%);
+}
+
+[data-theme='modern'] .badge-slot.earned {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--badge-color) 35%, #fff), var(--badge-color));
+}
+
+[data-theme='modern'] .trainer-team button {
+  background: rgb(255 255 255 / 0.05);
+  border: 1px solid rgb(255 255 255 / 0.08);
+  border-radius: 16px;
+  transition: background 0.2s, transform 0.2s;
+}
+
+[data-theme='modern'] .trainer-team button:hover {
+  background: rgb(255 255 255 / 0.1);
+  transform: translateY(-3px);
+}
+
+[data-theme='modern'] .trainer-team img {
+  filter: drop-shadow(0 6px 8px rgb(0 0 0 / 0.45));
+}
+
+[data-theme='modern'] .trainer-team span {
+  font-size: 13px;
+  font-weight: 600;
+}

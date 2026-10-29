@@ -1,0 +1,481 @@
+/* ---------- Estrutura da cena ---------- */
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.intro.is-ready {
+  animation: intro-out 450ms var(--t-exit) forwards;
+}
+
+.intro-scene {
+  position: relative;
+  width: min(640px, 94vw);
+  aspect-ratio: 16 / 10;
+  margin-bottom: 12vh;
+}
+
+/* Caixa de HP: entra junto com o Pokémon e some quando ele é capturado */
+.intro-hud {
+  position: absolute;
+  left: 2%;
+  top: 10%;
+  width: 40%;
+  opacity: 0;
+}
+
+.intro.is-ready .intro-hud {
+  animation:
+    intro-hud-in 500ms 200ms ease-out forwards,
+    intro-hud-out 300ms var(--t-catch) forwards;
+}
+
+.intro-hud-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.intro-hud-hp {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.intro-hud-bar {
+  flex: 1;
+}
+
+.intro-hud-bar span {
+  display: block;
+  height: 100%;
+}
+
+/* Área do Pokémon selvagem (lado direito, como na batalha) */
+.intro-enemy {
+  position: absolute;
+  right: 6%;
+  top: 6%;
+  width: 46%;
+  aspect-ratio: 1;
+  transform: translateX(100vw);
+}
+
+.intro.is-ready .intro-enemy {
+  animation: intro-enemy-in 650ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.intro-platform {
+  position: absolute;
+  left: 4%;
+  right: 4%;
+  bottom: 6%;
+  height: 20%;
+  border-radius: 50%;
+}
+
+.intro-pokemon {
+  position: absolute;
+  left: 50%;
+  bottom: 14%;
+  width: 72%;
+  translate: -50% 0;
+  transform-origin: 50% 47%;
+}
+
+.intro.is-ready .intro-pokemon {
+  animation: intro-absorb 480ms calc(var(--t-catch) + 60ms) ease-in forwards;
+}
+
+.intro-flash {
+  position: absolute;
+  left: 50%;
+  top: 48%;
+  width: 34%;
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0 30%, rgb(255 255 255 / 0.6) 50%, transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.intro.is-ready .intro-flash {
+  animation: intro-flash 520ms var(--t-catch) ease-out;
+}
+
+/* ---------- Pokébola: uma camada por movimento ---------- */
+.intro-ball-x {
+  position: absolute;
+  left: 50%;
+  top: 48%;
+  width: 12%;
+  aspect-ratio: 1;
+  margin: -6% 0 0 -6%;
+  opacity: 0;
+}
+
+.intro-ball-y,
+.intro-ball-drop,
+.intro-ball-shake,
+.intro-ball-spin {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.intro-ball-shake {
+  transform-origin: 50% 95%;
+}
+
+.intro .pokeball {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.intro .pokeball-top {
+  transform-box: fill-box;
+  transform-origin: 0% 100%; /* dobradiça no canto esquerdo da junção */
+}
+
+.intro.is-ready .intro-ball-x {
+  animation: intro-throw-x 700ms var(--t-throw) linear forwards;
+}
+
+.intro.is-ready .intro-ball-y {
+  animation: intro-throw-y 700ms var(--t-throw) forwards;
+}
+
+.intro.is-ready .intro-ball-spin {
+  animation: intro-spin 700ms var(--t-throw) ease-out forwards;
+}
+
+.intro.is-ready .pokeball-top {
+  animation: intro-ball-open 500ms var(--t-catch);
+}
+
+.intro.is-ready .intro-ball-drop {
+  animation: intro-drop 450ms var(--t-drop) forwards;
+}
+
+.intro.is-ready .intro-ball-shake {
+  animation: intro-shake 400ms var(--t-shake) 3 ease-in-out;
+}
+
+.intro.is-ready .intro-ball-spin .pokeball {
+  animation: intro-click 400ms var(--t-caught) forwards;
+}
+
+.intro-stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.intro-stars span {
+  position: absolute;
+  left: 50%;
+  top: 20%;
+  translate: -50% -50%;
+  color: #ffd84a;
+  font-size: clamp(12px, 2.8vw, 20px);
+  text-shadow: 0 0 6px rgb(255 216 74 / 0.8);
+  opacity: 0;
+}
+
+.intro-stars span:nth-child(1) { --dx: -180%; --dy: -140%; }
+.intro-stars span:nth-child(2) { --dx: 0%; --dy: -230%; }
+.intro-stars span:nth-child(3) { --dx: 180%; --dy: -140%; }
+
+.intro.is-ready .intro-stars span {
+  animation: intro-star 700ms var(--t-caught) ease-out forwards;
+}
+
+/* ---------- Caixa de texto e botão de pular ---------- */
+.intro-textbox {
+  position: absolute;
+  left: 50%;
+  bottom: 5vh;
+  width: min(700px, 92vw);
+  min-height: 92px;
+  translate: -50% 0;
+  animation: intro-textbox-in 250ms ease-out;
+}
+
+.intro-textbox p {
+  margin: 0;
+}
+
+.intro-caret {
+  display: inline-block;
+  margin-left: 8px;
+  animation: intro-blink 700ms steps(1) infinite;
+}
+
+.intro-skip {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+/* ---------- Keyframes ---------- */
+@keyframes intro-enemy-in {
+  from { transform: translateX(100vw); }
+  to { transform: none; }
+}
+
+/* Lado: sai do canto inferior esquerdo até o Pokémon */
+@keyframes intro-throw-x {
+  from { transform: translateX(-1140%); opacity: 1; }
+  to { transform: none; opacity: 1; }
+}
+
+/* Arco: sobe desacelerando e desce acelerando */
+@keyframes intro-throw-y {
+  0% { transform: translateY(720%); animation-timing-function: cubic-bezier(0.2, 0.7, 0.4, 1); }
+  55% { transform: translateY(-350%); animation-timing-function: cubic-bezier(0.6, 0, 0.8, 0.4); }
+  100% { transform: none; }
+}
+
+/* Gira e "afasta" (diminui) durante o arremesso */
+@keyframes intro-spin {
+  from { transform: rotate(0deg) scale(1.9); }
+  to { transform: rotate(-1080deg) scale(1); }
+}
+
+@keyframes intro-ball-open {
+  0%, 100% { transform: none; }
+  20%, 70% { transform: translate(-6%, -14%) rotate(-38deg); }
+}
+
+@keyframes intro-flash {
+  0% { opacity: 0; transform: scale(0.2); }
+  25% { opacity: 1; transform: scale(1.4); }
+  100% { opacity: 0; transform: scale(2.6); }
+}
+
+/* Pokémon vira energia vermelha e é puxado para dentro da bola */
+@keyframes intro-absorb {
+  0% { filter: none; transform: none; }
+  30% { filter: brightness(0) invert(1) drop-shadow(0 0 10px #ff4040); transform: scale(1.06); }
+  100% { filter: brightness(0) invert(1) drop-shadow(0 0 10px #ff4040); transform: scale(0); opacity: 0; }
+}
+
+/* Cai no chão e quica */
+@keyframes intro-drop {
+  0% { transform: none; animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5); }
+  55% { transform: translateY(265%); animation-timing-function: cubic-bezier(0, 0.5, 0.5, 1); }
+  72% { transform: translateY(195%); animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5); }
+  86% { transform: translateY(265%); animation-timing-function: cubic-bezier(0, 0.5, 0.5, 1); }
+  93% { transform: translateY(245%); animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5); }
+  100% { transform: translateY(265%); }
+}
+
+/* Uma balançada (repete 3 vezes) com pausa no final */
+@keyframes intro-shake {
+  0%, 55%, 100% { transform: none; }
+  12% { transform: translateX(-8%) rotate(-22deg); }
+  30% { transform: translateX(6%) rotate(18deg); }
+  44% { transform: rotate(-6deg); }
+}
+
+@keyframes intro-click {
+  0% { filter: none; }
+  30% { filter: brightness(1.5); }
+  100% { filter: brightness(0.8); }
+}
+
+@keyframes intro-star {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.4); }
+  20% { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(1.1) rotate(90deg); }
+}
+
+@keyframes intro-hud-in {
+  from { opacity: 0; transform: translateX(-40px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes intro-hud-out {
+  to { opacity: 0; }
+}
+
+@keyframes intro-textbox-in {
+  from { opacity: 0; transform: translateY(12px); }
+}
+
+@keyframes intro-blink {
+  50% { opacity: 0; }
+}
+
+@keyframes intro-out {
+  to { opacity: 0; transform: scale(1.04); }
+}
+
+/* ---------- Visual clássico (GBA) ---------- */
+[data-theme='classic'] .intro {
+  font-family: 'Press Start 2P', monospace;
+  background:
+    repeating-linear-gradient(0deg, rgb(0 0 0 / 0.035) 0 2px, transparent 2px 4px),
+    linear-gradient(#f8f8e0 0%, #f0f0c8 52%, #c8e8a0 52%, #a8d880 100%);
+}
+
+[data-theme='classic'] .intro-platform {
+  background: #98d068;
+  border: 4px solid #58903c;
+  box-shadow: inset 0 -8px 0 #78b850, inset 0 6px 0 #b8e890;
+}
+
+[data-theme='classic'] .intro-pokemon {
+  image-rendering: pixelated;
+}
+
+[data-theme='classic'] .intro-hud {
+  padding: 10px 14px 12px;
+  font-size: clamp(8px, 1.6vw, 12px);
+  text-transform: uppercase;
+  color: #404040;
+  background: #f8f8d8;
+  border: 4px solid #484848;
+  border-radius: 4px 18px 4px 18px;
+  box-shadow: 4px 4px 0 rgb(0 0 0 / 0.2);
+}
+
+[data-theme='classic'] .intro-hud-label {
+  padding: 2px 4px;
+  font-size: 0.75em;
+  color: #f8b838;
+  background: #484848;
+  border-radius: 3px;
+}
+
+[data-theme='classic'] .intro-hud-bar {
+  height: 12px;
+  padding: 2px;
+  background: #484848;
+  border-radius: 3px;
+}
+
+[data-theme='classic'] .intro-hud-bar span {
+  background: #70f8a8;
+  box-shadow: inset 0 -3px 0 #58d080;
+}
+
+[data-theme='classic'] .intro-textbox {
+  padding: 22px 26px;
+  background: #f8f8f8;
+  color: #484848;
+  border: 4px solid #303848;
+  border-radius: 8px;
+  box-shadow:
+    inset 0 0 0 4px #6878a0,
+    inset 0 0 0 7px #f8f8f8,
+    inset 0 0 0 9px #a8b8d8,
+    0 6px 0 rgb(0 0 0 / 0.2);
+  font-size: clamp(10px, 2.2vw, 15px);
+  line-height: 2;
+  text-shadow: 2px 2px 0 #d8d8d0;
+}
+
+[data-theme='classic'] .intro-caret {
+  color: #e03c28;
+  text-shadow: none;
+}
+
+[data-theme='classic'] .intro-skip {
+  font: inherit;
+  font-size: 10px;
+  color: #484848;
+  background: #f8f8f8;
+  border: 3px solid #303848;
+  border-radius: 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.2);
+}
+
+/* ---------- Visual moderno ---------- */
+[data-theme='modern'] .intro {
+  font-family: 'Barlow', sans-serif;
+  background:
+    radial-gradient(ellipse 55% 45% at 70% 38%, rgb(139 92 246 / 0.5), transparent 70%),
+    radial-gradient(ellipse 50% 40% at 12% 90%, rgb(255 107 61 / 0.35), transparent 70%),
+    linear-gradient(160deg, #161c4c, #070a1c);
+}
+
+[data-theme='modern'] .intro-platform {
+  background: radial-gradient(ellipse, rgb(255 255 255 / 0.2), transparent 70%);
+  border: 2px solid rgb(255 255 255 / 0.35);
+  box-shadow: 0 0 40px rgb(139 92 246 / 0.7), inset 0 0 24px rgb(255 255 255 / 0.25);
+}
+
+[data-theme='modern'] .intro-pokemon {
+  filter: drop-shadow(0 14px 18px rgb(0 0 0 / 0.5));
+}
+
+[data-theme='modern'] .intro-hud {
+  padding: 14px 18px;
+  font-size: clamp(14px, 2vw, 18px);
+  font-weight: 700;
+  color: #fff;
+  background: rgb(10 14 40 / 0.7);
+  border: 1px solid rgb(255 255 255 / 0.15);
+  border-radius: 16px;
+  backdrop-filter: blur(8px);
+}
+
+[data-theme='modern'] .intro-hud-level,
+[data-theme='modern'] .intro-hud-label {
+  color: #a3a8cc;
+}
+
+[data-theme='modern'] .intro-hud-label {
+  font-size: 0.7em;
+}
+
+[data-theme='modern'] .intro-hud-bar {
+  height: 7px;
+  overflow: hidden;
+  background: rgb(255 255 255 / 0.15);
+  border-radius: 999px;
+}
+
+[data-theme='modern'] .intro-hud-bar span {
+  background: linear-gradient(90deg, #86efac, #22c55e);
+}
+
+[data-theme='modern'] .intro-textbox {
+  padding: 20px 26px;
+  color: #fff;
+  background: rgb(10 14 40 / 0.78);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgb(255 255 255 / 0.15);
+  border-left: 5px solid #ff6b3d;
+  border-radius: 18px;
+  box-shadow: 0 20px 50px rgb(0 0 0 / 0.45);
+  font-size: clamp(15px, 2.4vw, 21px);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+[data-theme='modern'] .intro-caret {
+  color: #ff6b3d;
+  font-size: 0.7em;
+}
+
+[data-theme='modern'] .intro-skip {
+  font: 600 14px 'Barlow', sans-serif;
+  color: #fff;
+  background: rgb(255 255 255 / 0.1);
+  border: 1px solid rgb(255 255 255 / 0.25);
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+}
